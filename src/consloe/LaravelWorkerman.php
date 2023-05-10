@@ -4,11 +4,12 @@ namespace Ysnow\LaravelWorkerman\consloe;
 
 use App\Events\WorkerManEvent;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use Workerman\Worker;
 
 class LaravelWorkerman extends Command
 {
-    protected $signature   = 'Workerman {action} {--daemonize}';
+    protected $signature   = 'workerman {action} {--daemonize}';
     protected $description = 'Command description';
 
     public function __construct()
@@ -36,12 +37,14 @@ class LaravelWorkerman extends Command
     protected function start()
     {
         global $text_worker;
-        $text_worker = new Worker("websocket://0.0.0.0:7788");
-        /// 进程数量
-        $text_worker->count = 1;
-        $text_worker->name  = 'workerman';
-        // 运行worker
-        $this->worker_bind($text_worker, WorkerManEvent::class);
+        $port               = Config::get('laravel-workerman.port');
+        $name               = Config::get('laravel-workerman.name');
+        $count              = Config::get('laravel-workerman.count');
+        $text_worker        = new Worker("websocket://0.0.0.0:".$port);
+        $text_worker->count = $count;
+        $text_worker->name  = $name;
+        $class              = Config::get('laravel-workerman.Events');
+        $this->worker_bind($text_worker, $class);
         Worker::runAll();
     }
 

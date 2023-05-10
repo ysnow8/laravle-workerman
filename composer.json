@@ -1,0 +1,24 @@
+{
+    "name": "ysnow/laravel-workerman",
+    "require": {
+        "workerman/workerman": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ysnow\\LaravelWorkerman\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ysnow\\LaravelWorkerman\\LaravelWorkermanServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "ysnow",
+            "email": "ysnow888@gmail.com"
+        }
+    ]
+}

@@ -5,6 +5,10 @@ laravel集成workerman实现websocket
 ~~~
 composer require ysnow/laravel-workerman
 ~~~
+发布配置文件
+~~~
+php artisan vendor:publish --provider="Ysnow\LaravelWorkerman\LaravelWorkermanServiceProvider"
+~~~
 创建监听文件 app\Events\WorkerManEvent.php
 ~~~
 <?php

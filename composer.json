@@ -1,5 +1,11 @@
 {
     "name": "ysnow/laravel-workerman",
+	"description": "A Laravel server side alternative in PHP based on Workerman.",
+    "keywords": [
+		"laravel",
+		"Workerman",
+	],
+    "license": "MIT",
     "require": {
         "workerman/workerman": "^4.1"
     },

@@ -27,8 +27,8 @@ class LaravelWorkerman extends Command
             case 'start':
                 $this->start();
                 break;
-            case 'stop':
-                $this->stop();
+            case 'status':
+                $this->status();
                 break;
         }
     }
@@ -44,15 +44,11 @@ class LaravelWorkerman extends Command
         $text_worker->count = $count;
         $text_worker->name  = $name;
         $class              = Config::get('laravel-workerman.Events');
+        // 绑定 函数
         $this->worker_bind($text_worker, $class);
         Worker::runAll();
     }
 
-    protected function stop()
-    {
-        $argv = 'stop';
-        Worker::runAll();
-    }
 
     protected function status()
     {

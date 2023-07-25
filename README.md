@@ -18,31 +18,38 @@ composer require ysnow/laravel-workerman
 
 ## 发布资源配置文件
 ```bash
-php artisan vendor:publish --provider="YSnow\Laravel\Workerman\WorkermanServiceProvider"
+php artisan vendor:publish --provider="Ysnow\LaravelWorkerman\LaravelWorkermanServiceProvider"
 ```
 ## 创建监听文件 app\Events\WorkerManEvent.php
+回调函数参考 https://www.workerman.net/doc/workerman/worker/callbacks.html
 ~~~
 <?php
+
 namespace App\Events;
 class WorkerManEvent
 {
+    public static function onMessage($client_id, $message)
+    {
+        return $client_id->send(json_encode(['code' => 200, 'data' => json_decode($message)]));
+    }
+
+    public static function onWorkerStart()
+    {
+    }
+
     public static function onConnect($client_id)
     {
     }
+
     public static function onWebSocketConnect($client_id, $data)
     {
     }
-    // 这里写自己的逻辑
-    public static function onMessage($client_id, $message)
-    {
-        return $client_id->send(json_encode([
-            'code' => 200, 'data' => json_decode($message)
-        ]));;
-    }
+
     public static function onClose($client_id)
     {
     }
 }
+
 ~~~
 您可以使用 Artisan 命令启动 Workerman 服务：
 
@@ -52,11 +59,11 @@ php artisan workerman:start
 
 ## 示例
 
-如果适用，您可以提供一些示例代码或演示来展示您的项目的功能。
+
 
 ## 贡献
 
-欢迎贡献！如果您想为这个项目做出贡献，请先阅读 [贡献指南](CONTRIBUTING.md)。
+
 
 ## 版权和许可证
 
